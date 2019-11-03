@@ -1,22 +1,39 @@
 from sys import stdin, stdout
 
-def longestPrefixSuffix(s):
-    n = len(s)
-    newS = s[1:-1]
-    lenght = float('-inf')
-    stringRes = None
-    for i in range(n, 0, -1):
-        prefix = s[:i]
-        suffix = s[n-i:]
-        if prefix == suffix:
-            if prefix in newS:
-                if i > lenght:
-                    lenght = i
-                    stringRes = prefix
-    return stringRes
-
 s = stdin.readline().rstrip()
-res = longestPrefixSuffix(s)
+n = len(s)
+
+def compute_lps(s):
+    lps = [0 for i in range(n)] 
+    Len = 0
+    lps[0] = 0
+    i = 1
+    while (i < n): 
+        if (s[i] == s[Len]): 
+            Len += 1
+            lps[i] = Len
+            i += 1
+        else: 
+            if (Len != 0): 
+                Len = lps[Len - 1] 
+            else: 
+                lps[i] = 0
+                i += 1
+    return lps 
+
+def Longestsubstring(s):
+    lps = compute_lps(s) 
+    if (lps[n - 1] == 0): 
+        return 0
+    for i in range(0,n - 1): 
+        if (lps[i] == lps[n - 1]): 
+            return (s[0:lps[i]]) 
+    if (lps[lps[n - 1] - 1] == 0): 
+        return 0
+    else: 
+        return (s[0:lps[lps[n - 1] - 1]])
+    
+res = Longestsubstring(s)
 
 if res:
     stdout.write(res)
