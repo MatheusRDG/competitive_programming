@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+#define SPEED std::ios::sync_with_stdio(false); std::cin.tie(0); std::cout.tie(0);
+
+int n, q, arr[105], plays[105], i, c, pos;
+
+int trade(){
+    pos = i;
+    while(n-- and pos+1 != c){
+        if (!plays[pos]){
+            plays[pos] = 1;
+            std::swap(arr[pos], arr[pos+1]);
+            pos--;
+            n--;
+        }else{
+            return 0;
+        }
+    }
+    return 0;
+}
+
+int main(){
+    SPEED;
+    std::cin>>q;
+    for(i = 0; i < q; i++){
+        
+        std::cin>>n;
+        
+        for(i = 0; i < n; i++){
+            std::cin>>arr[i];
+        }
+        
+        c = 1;
+        
+        while(n--){
+            for(i = 0; i < n; i++){
+                if(arr[i] == c){
+                    trade();
+                    c++;
+                }
+            }
+        }
+        
+        for(i = 0; i < n; i++){
+            std::cout<<arr[i]<<" ";
+        }
+        std::cout<<"\n";
+        
+    }
+
+    return 0;
+}

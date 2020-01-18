@@ -56,6 +56,7 @@ int main(){
     SPEED;
 
     int arr[] = {10,10,10,5};
+    
     int n = sizeof(arr)/sizeof(arr[0]);
 
     int *BITree = build(arr, n);
