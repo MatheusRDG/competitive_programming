@@ -5,7 +5,7 @@ using namespace std;
 const int N = 1e5;  // limit for array size
 int n;  // array size
 long long t[2 * N];
-
+long long res;
 long long A[N], D[N];
 
 void build() {  // build the tree
@@ -26,24 +26,26 @@ int query(int l, int r) {  // sum on interval [l, r)
 }
 
 int main() {
-  std::cin >> N;
+  cin >> N;
   for(int i = 0;i < N;i++) {
-      std::cin >> t[i+N];
-      modify()
+      cin >> t[i+N];
+  }
+  build();
+  for(int i = 0;i < N;i++) {
+      cin >> D[i];
   }
   for(int i = 0;i < N;i++) {
-      std::cin >> D[i];
-  }
-  for(int i = 0;i < N;i++) {
+      res = 0;
       for(int j = 0;j <= i;j++) {
           if (t[j+N] >= D[i]) {
-              //t[j+N] - D[i]
-              
+              res+=t[n+j]-d[i];
+              modify(j, t[n+j] - D[i]);
           } else {
-              //t[j+N] = 0;
+              res+=t[n+j];
+              modify(j, 0);
           }
       }
+      cout << res << " ";
   }
-  //build();
   return 0;
 }
