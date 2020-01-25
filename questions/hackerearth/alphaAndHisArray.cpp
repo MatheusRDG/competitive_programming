@@ -3,9 +3,10 @@
 
 const int N = 1e5;
 int n;
-int t[2 * N];
-int res;
-int A[N], D[N];
+long t[N];
+long res;
+int least;
+long A[N], D[N];
 
 int main() {
 	
@@ -13,7 +14,7 @@ int main() {
 	std::cin >> n;
 
 	for(int i = 0;i < n;i++) {
-		std::cin >> t[i+n];
+		std::cin >> t[i];
 	}
 
 	for(int i = 0;i < n;i++) {
@@ -22,13 +23,16 @@ int main() {
 
 	for(int i = 0; i < n ;i++) {	
 		res = 0;
-		for(int j = 0; j <= i ;j++) {
-			if (t[j+n] >= D[i]) {
+		for(int j = least; j <= i ;j++) {
+			if (t[j] >= D[i]) {
 				res += D[i];
-				t[n+j] -= D[i];
+				t[j] -= D[i];
 			} else {
-				res += t[n+j];
-				t[n+j] = 0;
+				res += t[j];
+				t[j] = 0;
+			}
+			if (t[least] == 0){
+				least++;
 			}
 		}
 		std::cout << res << " ";
