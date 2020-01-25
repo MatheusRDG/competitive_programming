@@ -1,42 +1,41 @@
 #include <bits/stdc++.h>
 #define SPEED std::ios::sync_with_stdio(false); std::cin.tie(0); std::cout.tie(0);
+using namespace std;
 
-int t, n, res;
+int t, n;
+int ans[3];
 
-int solve(){
-
-    for (int a = 2; a <= res; a++){
-        for (int b = 2; b <= res; b++){
-            for (int c = 2; c <= res; c++){
-                if ((a*b*c) == n and (a != b and a != c and b != c)){
-                    std::cout<<"YES"<<std::endl;
-                    std::cout<<a<<" "<<b<<" "<<c<<std::endl;
-                    return 1;
-                }else{
-                    if((a*b*c) > n){
-                        continue;
-                    }
-                }
-            }
-        }
-    }
-    std::cout<<"NO"<<std::endl;
-    return 0;
+int findDivisor(int start, int index) {
+	for(int i = start; i * i <= n; i++) {
+		if(n % i == 0) {
+			ans[index] = i;
+			n /= i;
+			return 1;
+		}
+	}
+	return 0;
 }
-int main(){
-    
-    SPEED;
 
-    std::cin >> t;
+void solve() {
+	if(findDivisor(2, 0)) {
+		if(findDivisor(ans[0] + 1, 1) && n > ans[1]) {
+			cout << "YES" << endl;
+			for(int i = 0; i < 2; i++) {
+				cout << ans[i] << ' ';
+			}
+			cout << n << endl;
+			return;
+		}
+	}
+	cout << "NO" << endl;
+}
 
-    while (t--){
+int main() {
+	cin >> t;
+	while(t--) {
+		cin >> n;
+		solve();
+	}
 
-        std::cin>>n;
-
-        res = sqrt(n);
-
-        solve();
-    }
-
-    return 0;
+	return 0;
 }

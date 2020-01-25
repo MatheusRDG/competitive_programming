@@ -1,62 +1,52 @@
 #include <bits/stdc++.h>
 #define SPEED std::ios::sync_with_stdio(false); std::cin.tie(0); std::cout.tie(0);
+using namespace std;
 
-int t, n, x, y, xi, yi, count, pos;
+int t, n, x, y;
 
-int main(){
-    
-    SPEED;
+int main() {
+	SPEED;
+	cin >> t;
 
-    std::cin >> t;
+	while(t--) {
+		cin >> n;
+		
+		vector<pair<int, int>> coord;
+		string ans;
+		int package = 0;
+		int posX = 0;
+		int posY = 0;
 
-    while (t--){
+		for(int i = 0; i < n; i++) {
+			cin >> x >> y;
+			coord.push_back(make_pair(x, y));		
+		}
 
-        std::cin>>n;
+		sort(coord.begin(), coord.end());
+ 
+		while(package < n) {
+			if(posX == coord[package].first && posY == coord[package].second) {
+				package++;
+			} else {
+				if(posX < coord[package].first) {
+					ans += "R";
+					posX++;
+				} else if(posY < coord[package].second) {
+					ans += "U";
+					posY++;
+				} else {
+					break;
+				}
+			}
+		}
 
-        xi = 0;
-        yi = 0;
-        count = 0;
-        pos = 0;
-        std::vector<std::pair<int, int>> v;
-        std::string s;
+		if(package == n) {
+			cout << "YES" << endl;
+			cout << ans << endl;
+		} else {
+			cout << "NO" << endl;
+		}
+	}
 
-        for (int i = 0; i < n; i++){
-            std::cin>>x>>y;
-            v.push_back(std::make_pair(x,y));
-        }
-
-        std::sort(v.begin(), v.end());
-
-        while (count != n){
-            //std::cout<<v[pos].first<<" "<<v[pos].second<<std::endl;
-            if (v[pos].first == xi && v[pos].second == yi){
-                count+=1;
-                pos+=1;
-            }else{
-
-                if (v[pos].first > xi){
-                    xi+=1;
-                    s+="R";
-                }else{
-                    if (v[pos].second > yi){
-                        yi+=1;
-                        s+="U";
-                    }else{
-                        std::cout<<"NO"<<std::endl;
-                        break;
-                    }
-                }
-
-            }
-
-        }
-
-        if (count == n){
-            std::cout<<"YES"<<std::endl;
-            std::cout<<s<<std::endl;
-        }
-
-    }
-
-    return 0;
+	return 0;
 }
