@@ -3,8 +3,9 @@
 #define rep(n) for(int ii = 0; ii < n; ++ ii)
 
 int n, m, k;
-std::vector<char[1005]> maze;
-char s[1005];
+const int ms = 1005;
+//std::vector<char[ms][ms]> maze;
+char s[ms][ms];
 
 int solve(int posX, int posY, std::string res, int resLenght){
 
@@ -19,37 +20,37 @@ int solve(int posX, int posY, std::string res, int resLenght){
 			return 1;
 		}
 
-		if (maze[posX+1][posY] == '.'){ //DOWN
+		if (s[posX+1][posY] == '.'){ //DOWN
 
-			maze[posX+1][posY] = 'X';
-			maze[posX][posY] = '.';
+			s[posX+1][posY] = 'X';
+			s[posX][posY] = '.';
 
 			posX+=1;
 			res+="D";
 			resRev+="U";
 			resLenght+=1;
 
-		}else if (maze[posX][posY-1] == '.'){ //LEFT
-			maze[posX][posY-1] = 'X';
-			maze[posX][posY] = '.';
+		}else if (s[posX][posY-1] == '.'){ //LEFT
+			s[posX][posY-1] = 'X';
+			s[posX][posY] = '.';
 
 			posY-=1;
 			res+="L";
 			resRev+="R";
 			resLenght+=1;
 
-		}else if (maze[posX][posY+1] == '.'){ //RIGHT
-			maze[posX][posY+1] = 'X';
-			maze[posX][posY] = '.';
+		}else if (s[posX][posY+1] == '.'){ //RIGHT
+			s[posX][posY+1] = 'X';
+			s[posX][posY] = '.';
 
 			posY+=1;
 			res+="R";
 			resRev+="L";
 			resLenght+=1;
 
-		}else if(maze[posX-1][posY] == '.'){  //UP
-			maze[posX-1][posY] = 'X';
-			maze[posX][posY] = '.';
+		}else if(s[posX-1][posY] == '.'){  //UP
+			s[posX-1][posY] = 'X';
+			s[posX][posY] = '.';
 
 			posX-=1;
 			res+="U";
@@ -68,37 +69,30 @@ int main() {
 	SPEED;
 
 	std::cin >> n >> m >> k;
-
-	//std::vector<char[m+1]> maze;
-
+	
 	int posX = 0;
 	int posY = 0;
 	int flag = 0;
 
-	rep(n){
-
-		std::cin>>s;
-
+	for(int i = 0;i < n;i++){
+		std::cin>>s[i];
+		
 		if (!flag){
 
-			rep(m){
-				if (s[m] == 'X'){
-			    	if (found != std::string::npos){
-			    		posX = found;
-			    		flag = 1;
-			    	}
-			    	posY+=1;
+			for(int j = 0;j < m;j++){
+				if (s[i][j] == 'X'){
+		    		posX = i;
+		    		posY = j;
+		    		flag = 1;
 				}
 			}
 		}
-
-		maze.push_back(s);
 	}
 
 	if (k%2){
 		std::cout<<"IMPOSSIBLE";
 	}else{
-		solve(posX, posY, "", 0, maze);
+		solve(posX, posY, "", 0);
 	}
 
 	return 0;
